@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Live GPS Tracking</title>
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; width: 100%; }
+        #map { height: 90vh; width: 100%; border: none; }
+        h2 { text-align: center; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <h2>Live GPS Tracking</h2>
+    <p id="location" style="text-align: center;">Fetching location...</p>
+    
+    <!-- Google Maps iframe (default location, will update dynamically) -->
+    <iframe id="map" src="https://www.google.com/maps?q=0,0&z=15&output=embed"></iframe>
+
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.watchPosition(updatePosition, showError, {
+                    enableHighAccuracy: true,
+                    maximumAge: 0,
+                    timeout: 5000
+                });
+            } else {
+                document.getElementById("location").innerHTML = "Geolocation is not supported.";
+            }
+        }
+
+        function updatePosition(position) {
+            let lat = position.coords.latitude;
+            let lng = position.coords.longitude;
+
+            document.getElementById("location").innerHTML = `Latitude: ${lat} <br> Longitude: ${lng}`;
+
+            // Update Google Maps iframe with new location
+            document.getElementById("map").src = `https://www.google.com/maps?q=${lat},${lng}&z=15&output=embed`;
+        }
+
+        function showError(error) {
+            document.getElementById("location").innerHTML = "Error: " + error.message;
+        }
+
+        getLocation();
+    </script>
+
+</body>
+</html>

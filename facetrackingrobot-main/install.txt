@@ -1,0 +1,35 @@
+sudo apt install -y mosquitto mosquitto-clients
+
+sudo systemctl enable mosquitto.service
+
+sudo nano /etc/mosquitto/mosquitto.conf
+
+listener 1883
+allow_anonymous true
+
+
+
+sudo systemctl restart mosquitto
+
+
+mosquitto -d
+
+mosquitto_sub -d -t testTopic
+
+mosquitto_pub -d -t testTopic -m "Hello world!"
+
+suduo pip3 install paho-mqtt
+
+
+install pi apps:- 
+  wget -qO- https://raw.githubusercontent.com/Botspot/pi-apps/master/install | bash
+
+
+esp32
+
+https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+
+
+
+
+
